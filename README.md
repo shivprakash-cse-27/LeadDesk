@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LeadDesk Mini
 
 A full-stack lead-capture product built with the **MERN stack** (MongoDB, Express, React, Node.js) + **Tailwind CSS v4**.
@@ -262,3 +263,6 @@ VITE_API_URL=http://localhost:5000
 ## 📝 License
 
 Built for **Digital Heroes Training Task** — [digitalheroesco.com](https://digitalheroesco.com)
+=======
+# LeadDesk
+>>>>>>> 20b0a81820941dd6df76079b96a7586826294a61
