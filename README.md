@@ -13,9 +13,9 @@ Public landing page for capturing leads + Admin dashboard for managing them, wit
 
 | Page | URL |
 |:---|:---|
-| **Landing Page** | _[Add your Vercel URL here]_ |
-| **Admin Login** | _[Add your Vercel URL]/admin/login_ |
-| **Admin Dashboard** | _[Add your Vercel URL]/admin_ |
+| **Landing Page** | (https://github.com/shivprakash-cse-27/LeadDesk)_ |
+| **Admin Login** | _https://github.com/shivprakash-cse-27/LeadDesk/admin/login_ |
+| **Admin Dashboard** | _https://github.com/shivprakash-cse-27/LeadDesk/admin_ |
 
 ### Test Credentials
 
