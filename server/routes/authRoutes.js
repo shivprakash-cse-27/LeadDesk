@@ -14,8 +14,9 @@ const generateTokens = (id) => {
 
 const getCookieOptions = (isRefresh = false) => ({
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  secure: true,
+  sameSite: "none",
+  path: "/",
   maxAge: isRefresh ? 7 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000,
 });
 
