@@ -11,10 +11,7 @@ export const ToastProvider = ({ children }) => {
   const addToast = (message, type = 'info') => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
-    
-    setTimeout(() => {
-      removeToast(id);
-    }, 5000);
+    setTimeout(() => removeToast(id), 5000);
   };
 
   const removeToast = (id) => {
@@ -24,7 +21,7 @@ export const ToastProvider = ({ children }) => {
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      <div className="fixed top-20 right-4 z-50 flex flex-col space-y-2 pointer-events-none">
+      <div className="fixed top-20 right-4 z-50 flex flex-col gap-3 pointer-events-none">
         {toasts.map((toast) => (
           <Toast key={toast.id} {...toast} onClose={() => removeToast(toast.id)} />
         ))}
@@ -37,46 +34,32 @@ const Toast = ({ message, type, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsClosing(true);
-    }, 4700); // Start fade out a bit before actual removal
+    const timer = setTimeout(() => setIsClosing(true), 4600);
     return () => clearTimeout(timer);
   }, []);
 
-  const icons = {
-    success: <CheckCircle className="h-5 w-5 text-success" />,
-    error: <XCircle className="h-5 w-5 text-danger" />,
-    info: <Info className="h-5 w-5 text-primary" />,
+  const config = {
+    success: { icon: <CheckCircle className="h-5 w-5 text-success" />, border: 'border-success/20', glow: 'shadow-success/10' },
+    error: { icon: <XCircle className="h-5 w-5 text-danger" />, border: 'border-danger/20', glow: 'shadow-danger/10' },
+    info: { icon: <Info className="h-5 w-5 text-primary" />, border: 'border-primary/20', glow: 'shadow-primary/10' },
   };
 
-  const bgColors = {
-    success: 'bg-surface border-success/30',
-    error: 'bg-surface border-danger/30',
-    info: 'bg-surface border-primary/30',
-  };
+  const { icon, border, glow } = config[type] || config.info;
 
   return (
     <div
-      className={`max-w-sm w-full glass border ${bgColors[type]} rounded-lg shadow-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 ${
-        isClosing ? 'opacity-0 transition-opacity duration-300' : 'animate-[slideUp_0.3s_ease-out]'
+      className={`max-w-sm w-full glass-card border ${border} rounded-2xl shadow-lg ${glow} pointer-events-auto flex items-center gap-3 px-4 py-3.5 transition-all duration-300 ${
+        isClosing ? 'opacity-0 translate-x-4' : 'animate-slideInRight'
       }`}
     >
-      <div className="w-0 flex-1 p-4">
-        <div className="flex items-start">
-          <div className="flex-shrink-0 pt-0.5">{icons[type]}</div>
-          <div className="ml-3 w-0 flex-1">
-            <p className="text-sm font-medium text-text">{message}</p>
-          </div>
-        </div>
-      </div>
-      <div className="flex border-l border-surface-light">
-        <button
-          onClick={onClose}
-          className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-text-muted hover:text-text focus:outline-none"
-        >
-          <X className="h-5 w-5" />
-        </button>
-      </div>
+      <div className="flex-shrink-0">{icon}</div>
+      <p className="text-sm font-medium text-text flex-1">{message}</p>
+      <button
+        onClick={onClose}
+        className="flex-shrink-0 p-1 rounded-lg text-text-dim hover:text-text hover:bg-surface-light/30 transition-all"
+      >
+        <X className="h-4 w-4" />
+      </button>
     </div>
   );
 };
